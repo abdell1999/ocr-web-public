@@ -1,1 +1,1 @@
-# ocr-web-public
+# OCR Web (by abdell1999)
