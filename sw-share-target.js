@@ -1,6 +1,7 @@
 // Loaded into the Workbox service worker with importScripts (see nuxt.config.ts).
-// Handles the Web Share Target POST: keeps the shared image in a local cache
-// and redirects to the app, which picks it up (utils/sharedImage.ts).
+// Handles the Web Share Target POST: keeps the shared files (images or PDFs)
+// in a local cache and redirects to the app, which picks them up
+// (utils/sharedImage.ts).
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
   if (event.request.method !== 'POST' || !url.pathname.endsWith('/share-target')) return
@@ -9,14 +10,15 @@ self.addEventListener('fetch', (event) => {
       const base = new URL(self.registration.scope).pathname
       try {
         const form = await event.request.formData()
-        const file = form.get('image')
-        if (file && typeof file !== 'string') {
-          const cache = await caches.open('ocr-share-target')
+        const files = form.getAll('image').filter((f) => f && typeof f !== 'string')
+        const cache = await caches.open('ocr-share-target')
+        for (let i = 0; i < files.length; i++) {
           await cache.put(
-            base + 'shared-image',
-            new Response(file, { headers: { 'Content-Type': file.type || 'application/octet-stream' } }),
+            base + 'shared-image-' + i,
+            new Response(files[i], { headers: { 'Content-Type': files[i].type || 'application/octet-stream' } }),
           )
         }
+        await cache.put(base + 'shared-count', new Response(String(files.length)))
       } catch (e) {
         // A malformed share still opens the app.
       }
