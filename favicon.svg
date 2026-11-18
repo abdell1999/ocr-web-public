@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke-linecap="round">
+  <!-- OCR Web App mark: a galley proof (three lines of type) with the second
+       line circled in proofreader's blue pencil. Below 20 px it simplifies to
+       two pixel-aligned lines and the ring. Same drawing as components/AppLogo.vue.
+       PNG/ICO icons are generated from this file with `pnpm icons`. -->
+  <style>
+    .paper { fill: #FFFFFF }
+    .ink { stroke: #1A1C1E }
+    .pencil { stroke: #2F6FB0 }
+    .small { display: none }
+    @media (max-width: 20px) {
+      .full { display: none }
+      .small { display: inline }
+    }
+    @media (prefers-color-scheme: dark) {
+      .paper { fill: #141619 }
+      .ink { stroke: #E6E8EB }
+      .pencil { stroke: #7FB0E6 }
+    }
+  </style>
+  <g class="full">
+    <rect class="paper ink" x="3" y="3" width="26" height="26" rx="5" stroke-width="2"/>
+    <path class="ink" stroke-width="2" d="M9 8H23M11 16H21M9 24H18"/>
+    <rect class="pencil" stroke-width="2" x="7" y="12" width="18" height="8" rx="4"/>
+  </g>
+  <g class="small">
+    <rect class="paper ink" x="1" y="1" width="30" height="30" rx="5" stroke-width="2"/>
+    <path class="ink" stroke-width="4" stroke-linecap="butt" d="M6 8H24M10 20H22"/>
+    <rect class="pencil" stroke-width="2" x="7" y="15" width="18" height="10" rx="4"/>
+  </g>
+</svg>
